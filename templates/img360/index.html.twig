@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block title %}Formulaire{% endblock %}
+{% block body %}
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <div class="container">
+        <div class="row">
+            <div class="col" style="text-align: center;">
+                <br>
+                <h2 class="h2">Veuillez importer une image 360° : </h2><br>
+                {{ form_start(form) }}
+                <div class="input-group">
+                    <div class="custom-file">
+                        {{ form_widget(form.img, { 'id': 'inputGroupFile04', 'label': 'Input File'|trans, 'attr': {'class': 'custom-file-input'}}) }}
+                        <label class="custom-file-label labelInput" for="inputGroupFile04">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                        {{ form_widget(form.submit, { 'id': 'inputGroupFileAddon04', 'label': 'Submit'|trans, 'attr': { 'class': 'btn btn-outline-secondary'}})}}
+                    </div>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <script>
+            $('#inputGroupFile04').on('change', function(){
+                var fileName = $(this).val();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+    </script>
+{% endblock %}
