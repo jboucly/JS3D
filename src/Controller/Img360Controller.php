@@ -26,7 +26,7 @@ class Img360Controller extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form['img']->getData();
-            $fileName = date('dmYgi') . '.' . $file->guessExtension();            
+            $fileName = date('dmYgi') . '.' . $file->guessExtension();   
             try {
                 $file->move('./img/', $fileName);
             } catch (FileException $e) {
