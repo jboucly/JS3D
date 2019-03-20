@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Form\ImgType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -30,7 +29,8 @@ class Img360Controller extends AbstractController
             try {
                 $file->move('./img/', $fileName);
             } catch (FileException $e) {
-                print $e;
+                dump($e);
+                exit;
             }
             return $this->redirect('img?fileName=' . $fileName);
         }
@@ -45,7 +45,7 @@ class Img360Controller extends AbstractController
      */
     public function img(Request $request)
     {   
-        $fileName = __DIR__ . '/../public/img/' . $request->query->get('fileName');
+        $fileName = __DIR__ . '/../../public/img/' . $request->query->get('fileName');
         dump($fileName);
         return $this->render('img360/360.html.twig', [
             'img' => $fileName
