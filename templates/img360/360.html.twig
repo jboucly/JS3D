@@ -1,13 +1,35 @@
 {% extends 'base.html.twig' %}
 {% block title %}Image 360{% endblock %}
 {% block body %}
-    <script src="https://preview.babylonjs.com/babylon.js"></script>
-    <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
-    <script src="https://code.jquery.com/pep/0.4.1/pep.js"></script>
-    <link rel="stylesheet" type="text/css" href="style/style.css" />
-    <script type="text/javascript" href="../../public/js/img.js"></script> 
-
-    <canvas id="renderCanvas"></canvas>
-
-   
+    <body>
+        <script src="https://preview.babylonjs.com/babylon.js"></script>
+        <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+        <script src="https://code.jquery.com/pep/0.4.1/pep.js"></script>
+        <link href="style/styleImg.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript">
+            window.addEventListener('DOMContentLoaded', function () {
+                var canvas = document.getElementById('renderCanvas');
+                var engine = new BABYLON.Engine(canvas, true);
+                var createScene = function () {
+                    var scene = new BABYLON.Scene(engine);
+                    var camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI / 2, Math.PI / 2, 5, BABYLON.Vector3.Zero(), scene);
+                    camera.attachControl(canvas, true);
+                    camera.inputs.attached.mousewheel.detachControl(canvas);
+                    var dome = new BABYLON.PhotoDome("testdome", "img/{{ img }}" , {
+                        resolution: 32,
+                        size: 1000
+                    }, scene);
+                    return scene;
+                };
+                var scene = createScene();
+                engine.runRenderLoop(function () {
+                    scene.render();
+                });
+                window.addEventListener('resize', function () {
+                    engine.resize();
+                });
+            });
+        </script>
+        <canvas id="renderCanvas"></canvas>
+    </body>
 {% endblock %}

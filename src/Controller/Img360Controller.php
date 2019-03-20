@@ -34,7 +34,6 @@ class Img360Controller extends AbstractController
             }
             return $this->redirect('img?fileName=' . $fileName);
         }
-
         return $this->render('img360/index.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -45,8 +44,7 @@ class Img360Controller extends AbstractController
      */
     public function img(Request $request)
     {   
-        $fileName = __DIR__ . '/../../public/img/' . $request->query->get('fileName');
-        dump($fileName);
+        $fileName = $request->query->get('fileName');
         return $this->render('img360/360.html.twig', [
             'img' => $fileName
         ]);
